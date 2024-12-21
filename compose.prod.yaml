@@ -1,0 +1,11 @@
+name: apiTrail-container
+services:
+  apiTrail:
+    build:
+      context : .
+      dockerfile: shared/public_html/apiTrail/Dockerfile
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      APP_ENV: prod

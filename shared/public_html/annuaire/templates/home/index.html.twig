@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ tittle }}{% endblock %}
+
+{% block body %}
+
+    <main class="flex flex-col justify-start pt-6 items-center h-full grow px-4">
+        <div class="max-w-4xl w-full flex flex-col gap-4">
+            <div class="relative flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"
+                     class="absolute left-4 stroke-1 stroke-gray-900">
+                    <path d="M11 2C15.968 2 20 6.032 20 11C20 15.968 15.968 20 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2ZM11 18C14.8675 18 18 14.8675 18 11C18 7.1325 14.8675 4 11 4C7.1325 4 4 7.1325 4 11C4 14.8675 7.1325 18 11 18ZM19.4853 18.0711L22.3137 20.8995L20.8995 22.3137L18.0711 19.4853L19.4853 18.0711Z"></path>
+                </svg>
+                <input
+                        type="text"
+                        id="search-query"
+                        name="query"
+                        placeholder="Rechercher..."
+                        class="block w-full rounded-lg border-0 p-4 pl-12 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-900 focus:ring-[1px] focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+            </div>
+
+            <div id="results" class="flex flex-col gap-4">
+                {% include 'components/comment_list.html.twig' with {'cards': cards} %}
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let debounceTimeout;
+        document.getElementById('search-query').addEventListener('input', function (e) {
+            const query = e.target.value;
+
+            clearTimeout(debounceTimeout);
+
+            debounceTimeout = setTimeout(() => {
+                fetch("/search", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
+                    },
+                    body: JSON.stringify({query: query})
+                })
+                    .then(response => response.text())
+                    .then(html => {
+                        document.getElementById('results').innerHTML = html;
+                    })
+                    .catch(error => console.error('Erreur lors de la recherche:', error));
+            }, 500);
+        });
+    </script>
+
+
+{% endblock %}

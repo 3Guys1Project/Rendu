@@ -1,0 +1,82 @@
+name: apiTrail-container
+services:
+  server:
+    build:
+      context : .
+      dockerfile: shared/public_html/apiTrail/Dockerfile
+    ports:
+      - "8080:80"
+    volumes:
+      - ./shared/public_html/apiTrail:/var/www/html
+    environment:
+      APP_ENV: dev
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - app-network
+
+  front:
+    build:
+      context: .
+      dockerfile: shared/workspace/front/Dockerfile
+    ports:
+      - "5050:5050"
+    networks:
+      - app-network
+
+  db-annuaire:
+    image: postgres:${POSTGRES_VERSION:-16}-alpine
+    container_name: db-annuaire
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-app}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+      POSTGRES_USER: ${POSTGRES_USER:-app}
+    restart: always
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready", "-d", "${POSTGRES_DB:-app}", "-U", "${POSTGRES_USER:-app}" ]
+      timeout: 5s
+      retries: 5
+      start_period: 2s
+    volumes:
+      - database_data:/var/lib/postgresql/data:rw
+    networks:
+      - app-network
+
+  annuaire:
+    container_name: annuaire
+    build:
+      context: .
+      dockerfile: shared/public_html/annuaire/Dockerfile
+    volumes:
+      - ./shared/public_html/annuaire:/var/www/html
+    ports:
+      - "8081:80"
+    environment:
+      APP_ENV: dev
+    depends_on:
+      db-annuaire:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - app-network
+
+volumes:
+  dbdata:
+  database_data:
+
+networks:
+  app-network:
+    driver: bridge

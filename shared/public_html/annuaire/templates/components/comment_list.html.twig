@@ -1,0 +1,27 @@
+{% if cards|length == 0 %}
+    <p class="text-gray-500">Aucun résultat</p>
+{% else %}
+    {% for card in cards %}
+        <a href="{{ path('app_profile_by_code', {'code': card.code}) }}"
+           class="bg-white p-4 border border-gray-200 rounded-lg">
+            <div class="flex gap-2 items-center">
+                <img src="{{ avatar_path(card.avatar) }}" alt="Avatar"
+                     class="w-[45px] h-[45px] shrink-0 bg-zinc-200 rounded-full object-cover object-center">
+                <div class="flex flex-col w-full -mt-2">
+                    {% if (card.name or card.lastname) %}
+                        <h3 class="text-lg font-bold flex gap-1">
+                            <span>{{ card.name }}</span>
+                            <span>{{ card.lastname }}</span>
+                        </h3>
+                    {% else %}
+                        <h3 class="text-lg font-bold flex gap-1">Inconnu</h3>
+                    {% endif %}
+                    <span class="text-gray-500 text-sm -mt-1">@{{ card.username }}</span>
+                </div>
+            </div>
+            {% if card.bio %}
+                <p class="mt-2">{{ card.bio|default('')|slice(0, 200)|trim }}{{ card.bio|length > 200 ? '...' : '' }}</p>
+            {% endif %}
+        </a>
+    {% endfor %}
+{% endif %}

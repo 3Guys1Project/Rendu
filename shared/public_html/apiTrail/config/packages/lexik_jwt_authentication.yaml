@@ -1,0 +1,23 @@
+lexik_jwt_authentication:
+    secret_key: '%kernel.project_dir%/config/jwt/private.pem'
+    public_key: '%kernel.project_dir%/config/jwt/public.pem'
+    pass_phrase: '%env(JWT_PASSPHRASE)%'
+    token_ttl: 3600
+
+    # Création automatique du cookie contenant le JWT
+    set_cookies:
+        BEARER:
+            path: /
+            httpOnly: true
+            samesite: lax
+            secure: true
+
+    # Pour que l'application recherche le JWT dans les cookies
+    token_extractors:
+        cookie:
+            enabled: true
+            name: BEARER
+
+    blocklist_token:
+        enabled: true
+        cache: cache.app

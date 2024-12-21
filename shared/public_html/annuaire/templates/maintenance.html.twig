@@ -1,0 +1,26 @@
+{# templates/maintenance/index.html.twig #}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LDS est en maintenance</title>
+    <link rel="icon" href="/favicon.ico">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% block scripts %}{% endblock %}
+    {% endblock %}
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+<div class="bg-white p-8 rounded-xl border-gray-200 border-[1px] text-center">
+    <h1 class="text-2xl font-bold text-red-600 mb-4">Le site est en maintenance</h1>
+    <p class="text-gray-700">Nous effectuons actuellement des travaux de maintenance sur le site. Veuillez revenir plus
+        tard.</p>
+</div>
+</body>
+</html>
