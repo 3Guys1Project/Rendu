@@ -1,11 +1,52 @@
-# Documentation de l'API
+# README
+
+
+### Explications :
+- **URL des projets déployés** : Liens vers les différentes parties du projet déployées sur le serveur web.
+- **Dépôt Git** : Le lien vers le dépôt Git où se trouve le code source de votre projet.
+- **Investissement de chaque membre** : Un résumé de ce que chaque membre a contribué dans les projets.
+- **Indications supplémentaires pour lancer les applications** : Instructions supplémentaires pour démarrer les applications localement avec un script spécifique.
+- **Peuplement de la base de données** : Une explication indiquant que la base de données est déjà peuplée et comment la peupler si nécessaire.
+
+## URL des projets déployés
+
+- **Annuaire** : [https://webinfo.iutmontp.univ-montp2.fr/~garroc/annuaire](https://webinfo.iutmontp.univ-montp2.fr/~garroc/annuaire)
+- **Front** : [https://webinfo.iutmontp.univ-montp2.fr/~garroc/front](https://webinfo.iutmontp.univ-montp2.fr/~garroc/front)
+- **API** : [https://webinfo.iutmontp.univ-montp2.fr/~garroc/front/](https://webinfo.iutmontp.univ-montp2.fr/~garroc/front/)
 
 ## Dépôt Git
 
-Le code source complet du projet est disponible sur GitHub :
-[3Guys1Project/apiTrail](https://github.com/3Guys1Project/apiTrail)
+Le code source des projets est hébergé sur GitHub :  
+[https://github.com/3Guys1Project/Rendu](https://github.com/3Guys1Project/Rendu)
 
-## Endpoints de l'API
+## Récapitulatif de l'investissement des membres
+
+- **Marius** : Principalement responsable du développement du front-end et a contribué partiellement à l'API.
+- **Daniil** : Principalement responsable du développement du front-end et a contribué partiellement à l'API.
+- **Clément** : Principalement responsable de l'API, mais a également contribué au front-end.
+
+## Indications supplémentaires pour tester l'application en local
+
+Pour lancer et tester l'application en local, voici les étapes spécifiques à suivre, outre les classiques `composer install` et `npm install` pour les projets, ainsi que la configuration et génération de la base de données :
+
+1. Clonez le dépôt Git :
+   ```bash
+   git clone https://github.com/3Guys1Project/Rendu
+   cd Rendu
+    ```
+2. Exécutez le script run.sh situé à la racine du projet pour démarrer les services nécessaires :
+    ```bash
+    ./run.sh
+    ```
+   
+## Peuplement de la base de données
+
+La base de données est déjà peuplée, donc il n'est pas nécessaire de relancer les scripts de peuplement. Toutefois, si vous devez peupler la base de données manuellement, exécutez les deux scripts SQL situés à la racine du projet sur GitHub.
+
+
+## API
+
+### Endpoints de l'API
 
 Ci-dessous, vous trouverez une liste des routes disponibles dans l'API. Elle prend en charge les méthodes HTTP standards (GET, POST, PATCH, DELETE) pour faciliter les opérations CRUD sur les ressources.
 
@@ -15,6 +56,8 @@ Ci-dessous, vous trouverez une liste des routes disponibles dans l'API. Elle pre
     - `POST /api/auth/register`
 - **Connexion**
     - `POST /api/auth/login`
+- **Déconnexion**
+    - `POST /api/token/invalidate`
 
 ### Utilisateurs
 
@@ -55,7 +98,7 @@ Ci-dessous, vous trouverez une liste des routes disponibles dans l'API. Elle pre
 - **Récupérer les participations d'un utilisateurs**
     - `GET /api/utilisateurs/{idUser}/participations`
 - **Supprimer une participation spécifique d'un utilisateur**
-    - `DELETE /api/utilisateurs/{idUser}/participations/{idParticipation}`
+    - `DELETE /api/participations/{id}`
 - **Récupérer les participations d'un événement**
     - `GET /api/events/{idEvent}/participations`
 
@@ -94,18 +137,13 @@ Assurez-vous d'avoir installé Docker et Docker Compose sur votre machine.
    Pour que l'authentification avec JWT fonctionne correctement, exécutez la commande suivante pour générer les clés de chiffrement JWT :
    ```bash
    php bin/console lexik:jwt:generate-keypair
-   
-4. **Accès à l'API** :
-    - En mode **développement** : Accès à `http://localhost:80` (ou port spécifié).
-    - En mode **production** : Accès à `https://localhost:443` avec un certificat SSL auto-signé.
 
 
 ## Répartition des contributions
 
 Chaque membre a contribué de manière équitable au développement du projet :
 
-- **Clément Garro** - Implémentation des routes d’utilisateur et d’authentification. Développement de la gestion des 
+- **Clément Garro** - Implémentation des routes d’utilisateur et d’authentification. Développement de la gestion des
   événements et des participations.
 - **Marius Brouty** - Développement de la gestion des événements et des participations, gestion des JWT.
 - **Daniil Hirchyts** - Configuration des fonctionnalités de sécurité, gestion des JWT, gestion des événements.
-
