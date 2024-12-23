@@ -30,6 +30,8 @@ services:
     build:
       context: .
       dockerfile: shared/workspace/front/Dockerfile
+    volumes:
+      - ./shared/workspace/front:/app
     ports:
       - "5050:5050"
     networks:
@@ -53,7 +55,7 @@ services:
     volumes:
       - database_data:/var/lib/postgresql/data:rw
     networks:
-      - app-network
+      - annuaire-network
 
   annuaire:
     container_name: annuaire
@@ -63,7 +65,7 @@ services:
     volumes:
       - ./shared/public_html/annuaire:/var/www/html
     ports:
-      - "8081:80"
+      - "5051:80"
     environment:
       APP_ENV: dev
     depends_on:
@@ -71,7 +73,7 @@ services:
         condition: service_healthy
     restart: unless-stopped
     networks:
-      - app-network
+      - annuaire-network
 
 volumes:
   dbdata:
@@ -79,4 +81,6 @@ volumes:
 
 networks:
   app-network:
+    driver: bridge
+  annuaire-network:
     driver: bridge

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd apitrail && composer install --prefer-dist --no-progress --no-interaction
+composer install --prefer-dist --no-progress --no-interaction
 
 php bin/console doctrine:database:create --if-not-exists
 php bin/console doctrine:migrations:migrate --no-interaction

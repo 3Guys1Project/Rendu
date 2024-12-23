@@ -20,8 +20,8 @@ class CreateUserCommand extends Command
 
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-        private readonly UserManager $userManager,
-        private readonly UserRepository $userRepository
+        private readonly UserManager            $userManager,
+        private readonly UserRepository         $userRepository
     )
     {
         parent::__construct();
@@ -40,7 +40,8 @@ class CreateUserCommand extends Command
             ->addArgument('email', InputArgument::OPTIONAL, 'The email of the user.')
             ->addArgument('password', InputArgument::OPTIONAL, 'The password of the user.')
             ->addArgument('visible', InputArgument::OPTIONAL, 'The visibility of the user.')
-            ->addArgument('code', InputArgument::OPTIONAL, 'The code of the user.');
+            ->addArgument('code', InputArgument::OPTIONAL, 'The code of the user.')
+            ->addArgument('admin', InputArgument::OPTIONAL, 'Is the user an admin?');
     }
 
     /**
@@ -93,6 +94,12 @@ class CreateUserCommand extends Command
             }
         }
 
+        $admin = $input->getArgument('admin');
+        if (!$admin) {
+            $question = new Question('Is the user an admin (true/false)? ', 'false');
+            $admin = $helper->ask($input, $output, $question);
+        }
+
         // Validate arguments
         if (!preg_match('/^[a-zA-Z0-9_-]{3,30}$/', $username)) {
             $output->writeln('Invalid username. The username must be 3-30 characters long and can contain letters, numbers, underscores, and hyphens.');
@@ -138,6 +145,10 @@ class CreateUserCommand extends Command
         $user->setEmail($email);
         $user->setCode($code);
 
+        if ($admin === 'true') {
+            $user->setRoles(['ROLE_ADMIN']);
+        }
+
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
@@ -145,6 +156,7 @@ class CreateUserCommand extends Command
 
         return Command::SUCCESS;
     }
+
     /**
      * @throws RandomException
      */

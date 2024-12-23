@@ -1,19 +1,5 @@
 # README
 
-
-### Explications :
-- **URL des projets déployés** : Liens vers les différentes parties du projet déployées sur le serveur web.
-- **Dépôt Git** : Le lien vers le dépôt Git où se trouve le code source de votre projet.
-- **Investissement de chaque membre** : Un résumé de ce que chaque membre a contribué dans les projets.
-- **Indications supplémentaires pour lancer les applications** : Instructions supplémentaires pour démarrer les applications localement avec un script spécifique.
-- **Peuplement de la base de données** : Une explication indiquant que la base de données est déjà peuplée et comment la peupler si nécessaire.
-
-## URL des projets déployés
-
-- **Annuaire** : [https://webinfo.iutmontp.univ-montp2.fr/~garroc/annuaire](https://webinfo.iutmontp.univ-montp2.fr/~garroc/annuaire)
-- **Front** : [https://webinfo.iutmontp.univ-montp2.fr/~garroc/front](https://webinfo.iutmontp.univ-montp2.fr/~garroc/front)
-- **API** : [https://webinfo.iutmontp.univ-montp2.fr/~garroc/front/](https://webinfo.iutmontp.univ-montp2.fr/~garroc/front/)
-
 ## Dépôt Git
 
 Le code source des projets est hébergé sur GitHub :  
@@ -21,9 +7,43 @@ Le code source des projets est hébergé sur GitHub :
 
 ## Récapitulatif de l'investissement des membres
 
-- **Marius** : Principalement responsable du développement du front-end et a contribué partiellement à l'API.
-- **Daniil** : Principalement responsable du développement du front-end et a contribué partiellement à l'API.
-- **Clément** : Principalement responsable de l'API, mais a également contribué au front-end.
+- **Marius** : Front (50%), API (10%), Deploiement (40%)
+- **Daniil** : Front (70%), API (30%)
+- **Clément** : Front (30%), API (60%), Deploiement (10%)
+
+## URL des projets déployés
+
+- **Annuaire** : [https://webinfo.iutmontp.univ-montp2.fr/~garroc/annuaire](https://webinfo.iutmontp.univ-montp2.fr/~garroc/annuaire)
+- **Front** : [https://webinfo.iutmontp.univ-montp2.fr/~garroc/front](https://webinfo.iutmontp.univ-montp2.fr/~garroc/front)
+- **API** : [https://webinfo.iutmontp.univ-montp2.fr/~garroc/trail/](https://webinfo.iutmontp.univ-montp2.fr/~garroc/trail/)
+
+> Nous n'avons pas réussi à déployer l'annuaire sur le serveur de l'IUT. Il y a une erreur 500 et on a pas réussi à accéder aux logs pour comprendre l'erreur. Il tourne sans problème en local.
+
+## URL avec docker compose
+
+- **Front** : [http://localhost:5050](http://localhost:5050)
+- **API** : [http://localhost:8080](http://localhost:8080)
+- **Annuaire** : [http://localhost:5051](http://localhost:5051)
+
+> Il se peut que refresh token ne fonctionne pas. Dans ce cas, il faut supprimer les cookies du front car d'anciens cookies peuvent interférer avec les nouveaux.
+
+## Bases de données
+
+### Annuaire
+
+- **Type** : PostgreSQL
+- **Database** : app
+- **User** : app
+- **Password** : password
+- **Port** : 5432
+
+### API
+
+- **Type** : MySQL
+- **Database** : db
+- **User** : root
+- **Password** : root
+- **Port** : 3306
 
 ## Indications supplémentaires pour tester l'application en local
 
@@ -38,17 +58,20 @@ Pour lancer et tester l'application en local, voici les étapes spécifiques à 
     ```bash
     ./run.sh
     ```
+> **Note** : Le lancement des services peut prendre un certain temps car les entrypoints vont installer les dépendances nécessaires.
    
 ## Peuplement de la base de données
 
-La base de données est déjà peuplée, donc il n'est pas nécessaire de relancer les scripts de peuplement. Toutefois, si vous devez peupler la base de données manuellement, exécutez les deux scripts SQL situés à la racine du projet sur GitHub.
-
+La base de données sur le server de l'IUT est déjà peuplée. 
+Pour peupler la base de données en local, vous pouvez executer les scripts SQL qui sont à la racine du projet.
 
 ## API
 
 ### Endpoints de l'API
 
 Ci-dessous, vous trouverez une liste des routes disponibles dans l'API. Elle prend en charge les méthodes HTTP standards (GET, POST, PATCH, DELETE) pour faciliter les opérations CRUD sur les ressources.
+
+Vous pouvez également utiliser [API Platform](http://localhost:8080/api).
 
 ### Authentification
 
@@ -101,49 +124,3 @@ Ci-dessous, vous trouverez une liste des routes disponibles dans l'API. Elle pre
     - `DELETE /api/participations/{id}`
 - **Récupérer les participations d'un événement**
     - `GET /api/events/{idEvent}/participations`
-
-## Sécurité et Authentification
-
-L'API utilise des jetons JWT pour une authentification sécurisée des utilisateurs, lesquels sont retournés sous forme de cookies pour assurer une gestion sécurisée des sessions. Le contrôle d'accès est mis en place pour restreindre l'accès aux opérations sensibles en fonction des rôles des utilisateurs.
-
-## Lancement de l’API
-
-Le projet utilise Docker pour une configuration simplifiée en environnement de développement et de production. Voici comment démarrer l’API en utilisant Docker Compose et les différents fichiers de configuration.
-
-### Prérequis
-
-Assurez-vous d'avoir installé Docker et Docker Compose sur votre machine.
-
-### Instructions de Lancement
-
-1. **Choix de l'environnement** :
-    - **Développement** : Ce mode utilise des volumes partagés pour un développement interactif.
-    - **Production** : Ce mode configure l’API pour un environnement de production avec des variables d'environnement adaptées.
-
-2. **Démarrage de l'API** :
-    - Pour lancer en mode **développement** :
-      ```bash
-      ./run.sh dev
-      ```
-      Ce mode utilise `compose.yaml` pour monter les volumes de développement et expose des ports supplémentaires.
-
-    - Pour lancer en mode **production** :
-      ```bash
-      ./run.sh prod
-      ```
-      Ce mode utilise à la fois `compose.yaml` et `compose.prod.yaml` pour une configuration adaptée en production, sans volumes partagés et avec les ports standards.
-
-3. **Configuration des JWT** :
-   Pour que l'authentification avec JWT fonctionne correctement, exécutez la commande suivante pour générer les clés de chiffrement JWT :
-   ```bash
-   php bin/console lexik:jwt:generate-keypair
-
-
-## Répartition des contributions
-
-Chaque membre a contribué de manière équitable au développement du projet :
-
-- **Clément Garro** - Implémentation des routes d’utilisateur et d’authentification. Développement de la gestion des
-  événements et des participations.
-- **Marius Brouty** - Développement de la gestion des événements et des participations, gestion des JWT.
-- **Daniil Hirchyts** - Configuration des fonctionnalités de sécurité, gestion des JWT, gestion des événements.

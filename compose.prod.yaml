@@ -1,11 +1,28 @@
 name: apiTrail-container
 services:
-  apiTrail:
+  server:
     build:
-      context : .
+      context: .
       dockerfile: shared/public_html/apiTrail/Dockerfile
     ports:
-      - 80:80
-      - 443:443
+      - "8080:80"
     environment:
       APP_ENV: prod
+
+  annuaire:
+    build:
+      context: .
+      dockerfile: shared/public_html/annuaire/Dockerfile
+    ports:
+      - "5051:80"
+    environment:
+      APP_ENV: prod
+
+  front:
+    build:
+      context: .
+      dockerfile: shared/workspace/front/Dockerfile
+    ports:
+      - "5050:5050"
+    environment:
+      NODE_ENV: production

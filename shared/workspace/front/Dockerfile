@@ -12,4 +12,7 @@ COPY ./shared/workspace/front .
 
 EXPOSE 5050
 
-CMD ["pnpm", "run", "dev"]
+COPY ./shared/workspace/front/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

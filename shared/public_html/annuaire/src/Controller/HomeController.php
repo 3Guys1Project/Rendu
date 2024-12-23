@@ -18,7 +18,8 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home', methods: ['GET', 'POST'])]
     public function index(): Response
     {
-        $cards = $this->userRepository->getCardUsernames();
+        $isAdmin = $this->isGranted('ROLE_ADMIN');
+        $cards = $this->userRepository->getCardUsernames($isAdmin);
 
         return $this->render('home/index.html.twig', [
             'tittle' => 'Home',
@@ -32,8 +33,9 @@ class HomeController extends AbstractController
         $data = json_decode($request->getContent(), true);
         $query = $data['query'] ?? '';
 
-        if ($query != '') $results = $this->userRepository->findBySearchQuery($query);
-        else $results = $this->userRepository->getCardUsernames();
+        $isAdmin = $this->isGranted('ROLE_ADMIN');
+        if ($query != '') $results = $this->userRepository->findBySearchQuery($query, $isAdmin);
+        else $results = $this->userRepository->getCardUsernames($isAdmin);
         $formattedResults = [];
         foreach ($results as $result) {
             $formattedResults[] = $result;

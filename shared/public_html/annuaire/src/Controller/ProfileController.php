@@ -202,7 +202,7 @@ class ProfileController extends AbstractController
     {
         $user = $this->getUser();
 
-        if (!$user || !$this->security->isGranted('ROLE_ADMIN')) {
+        if (!$user || !$this->security->isAdmin()) {
             throw $this->createAccessDeniedException('You are not allowed to access this page.');
         }
 

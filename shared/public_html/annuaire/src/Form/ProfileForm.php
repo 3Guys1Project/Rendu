@@ -34,6 +34,7 @@ class ProfileForm extends AbstractType
     {
         $builder
             ->add('username', TextType::class, [
+                'label' => 'Nom d’utilisateur',
                 'attr' => [
                     'minlength' => 3,
                     'maxlength' => 30,

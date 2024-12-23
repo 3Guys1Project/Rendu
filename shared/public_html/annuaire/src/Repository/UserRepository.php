@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Bundle\SecurityBundle\Security;
 
 /**
  * @extends ServiceEntityRepository<User>
@@ -13,9 +12,7 @@ use Symfony\Bundle\SecurityBundle\Security;
 class UserRepository extends ServiceEntityRepository
 {
     public function __construct(
-        ManagerRegistry           $registry,
-        private readonly Security $security,
-    )
+        ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
     }
@@ -31,11 +28,11 @@ class UserRepository extends ServiceEntityRepository
             ->getArrayResult();
     }
 
-    public function getCardUsernames(): array
+    public function getCardUsernames($isAdmin): array
     {
         $sql = $this->createQueryBuilder('u')
             ->select('u.username,u.code, SUBSTRING(u.bio, 1, 201) AS bio, u.avatar, u.name, u.lastname');
-        if ($this->security->isGranted('ROLE_ADMIN')) {
+        if ($isAdmin) {
             return $sql->getQuery()->getArrayResult();
         }
         return $sql->where('u.visible = TRUE')
@@ -74,7 +71,7 @@ class UserRepository extends ServiceEntityRepository
     }
 
 
-    public function findBySearchQuery($query): array
+    public function findBySearchQuery($query, $isAdmin): array
     {
         $sql = $this->createQueryBuilder('u')
             ->select('u.username, u.code, SUBSTRING(u.bio, 1, 201) AS bio, u.avatar, u.name, u.lastname')
@@ -82,7 +79,7 @@ class UserRepository extends ServiceEntityRepository
             ->setParameter('query', '%' . strtolower($query) . '%')
             ->orderBy('u.id', 'ASC');
 
-        if ($this->security->isGranted('ROLE_ADMIN')) {
+        if ($isAdmin) {
             return $sql->getQuery()->getArrayResult();
         }
         return $sql->andWhere('u.visible = TRUE')->getQuery()->getArrayResult();
