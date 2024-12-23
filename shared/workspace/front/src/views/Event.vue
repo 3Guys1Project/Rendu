@@ -21,7 +21,7 @@ const initialized = computed(() => userStore.initialized);
 const isParticipating = computed(() => {
   return event.value?.participations.some(
       (participation) => participation.user.id === userStore.getUser()?.id
-  );
+  ) || event.value?.participating;
 });
 
 onMounted(async () => {

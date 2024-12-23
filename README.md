@@ -13,11 +13,11 @@ Le code source des projets est hébergé sur GitHub :
 
 ## URL des projets déployés
 
-- **Annuaire** : [https://webinfo.iutmontp.univ-montp2.fr/~garroc/annuaire](https://webinfo.iutmontp.univ-montp2.fr/~garroc/annuaire)
+- **Annuaire** : [https://webinfo.iutmontp.univ-montp2.fr/~garroc/annuaire/public](https://webinfo.iutmontp.univ-montp2.fr/~garroc/annuaire/public)
 - **Front** : [https://webinfo.iutmontp.univ-montp2.fr/~garroc/front](https://webinfo.iutmontp.univ-montp2.fr/~garroc/front)
-- **API** : [https://webinfo.iutmontp.univ-montp2.fr/~garroc/trail/](https://webinfo.iutmontp.univ-montp2.fr/~garroc/trail/)
+- **API** : [https://webinfo.iutmontp.univ-montp2.fr/~garroc/trail/apiTrail/public/api](https://webinfo.iutmontp.univ-montp2.fr/~garroc/trail/apiTrail/public/api)
 
-> Nous n'avons pas réussi à déployer l'annuaire sur le serveur de l'IUT. Il y a une erreur 500 et on a pas réussi à accéder aux logs pour comprendre l'erreur. Il tourne sans problème en local.
+> Nous n'avons pas réussi à déployer l'annuaire correctement sur le serveur de l'IUT. Il y a des erreurs de paths que nous n'avons réussi à corriger. Cependant, il tourne sans problème en local.
 
 ## URL avec docker compose
 
