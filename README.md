@@ -10,9 +10,14 @@
 
 ## URL des projets déployés
 
-- **Annuaire** : [https://webinfo.iutmontp.univ-montp2.fr/~garroc/annuaire](https://webinfo.iutmontp.univ-montp2.fr/~garroc/annuaire)
+- **Annuaire** : [https://webinfo.iutmontp.univ-montp2.fr/~garroc/annuaire/](https://webinfo.iutmontp.univ-montp2.fr/~garroc/annuaire/)
 - **Front** : [https://webinfo.iutmontp.univ-montp2.fr/~garroc/front](https://webinfo.iutmontp.univ-montp2.fr/~garroc/front)
-- **API** : [https://webinfo.iutmontp.univ-montp2.fr/~garroc/front/](https://webinfo.iutmontp.univ-montp2.fr/~garroc/front/)
+- **API** : [https://webinfo.iutmontp.univ-montp2.fr/~garroc/trail/apiTrail/public/api](https://webinfo.iutmontp.univ-montp2.fr/~garroc/trail/apiTrail/public/api)
+
+### Information sur l'Annuaire
+
+Suite à des problèmes avec Webpack, le CSS ne fonctionnait plus correctement. Nous avons donc dû laisser le site tel quel. Cependant, le site fonctionne très bien.
+
 
 ## Dépôt Git
 

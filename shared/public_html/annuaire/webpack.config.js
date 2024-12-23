@@ -5,8 +5,9 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 }
 
 Encore
-    .setOutputPath('public/build/')
-    .setPublicPath('/build')
+    .setOutputPath('public/build')
+    .setPublicPath('/~garroc/annuaire/public/build')
+    .setManifestKeyPrefix('build/')
     .addEntry('app', './assets/app.js')
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
