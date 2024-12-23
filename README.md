@@ -10,7 +10,7 @@
 
 ## URL des projets déployés
 
-- **Annuaire** : [https://webinfo.iutmontp.univ-montp2.fr/~garroc/annuaire/](https://webinfo.iutmontp.univ-montp2.fr/~garroc/annuaire/)
+- **Annuaire** : [https://webinfo.iutmontp.univ-montp2.fr/~garroc/annuaire/public/](https://webinfo.iutmontp.univ-montp2.fr/~garroc/annuaire/public/)
 - **Front** : [https://webinfo.iutmontp.univ-montp2.fr/~garroc/front](https://webinfo.iutmontp.univ-montp2.fr/~garroc/front)
 - **API** : [https://webinfo.iutmontp.univ-montp2.fr/~garroc/trail/apiTrail/public/api](https://webinfo.iutmontp.univ-montp2.fr/~garroc/trail/apiTrail/public/api)
 
